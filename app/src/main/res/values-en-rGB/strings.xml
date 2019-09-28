@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">android_remote_control_client</string>
+    <string name="claxon">claxon</string>
+    <string name="turn_signal_right">right turn signal</string>
+    <string name="turn_signal_left">left turn signal</string>
+    <string name="head_lights">headlights</string>
+    <string name="dummy_string">fill</string>
+    <string name="rot_left">rotate left</string>
+    <string name="mv_fw">move forward</string>
+    <string name="mv_bw">move backward</string>
+    <string name="rot_right">rotate right</string>
+    <string name="hazard_lights">emergency lights</string>
+    <string name="txt_lbl_servidor">Server:</string>
+</resources>

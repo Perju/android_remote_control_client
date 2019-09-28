@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity"
+    tools:visibility="visible">
+
+    <TableLayout
+        android:id="@+id/tableLayout2"
+        android:layout_width="210dp"
+        android:layout_height="210dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageButton
+                android:id="@+id/imageButton4"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:contentDescription="@string/dummy_string"
+                android:visibility="invisible"
+                app:srcCompat="@color/colorPrimary" />
+
+            <ImageButton
+                android:id="@+id/btn_fw"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:background="@drawable/button_states"
+                android:contentDescription="@string/mv_fw"
+                android:scaleType="fitCenter"
+                android:tag="Palante"
+                app:srcCompat="@drawable/rc_control_move" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageButton
+                android:id="@+id/btn_rot_left"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:background="@drawable/button_states"
+                android:contentDescription="@string/dummy_string"
+                android:scaleType="fitCenter"
+                android:tag="Izquierda"
+                app:srcCompat="@drawable/rc_control_rotate_left" />
+
+            <ImageButton
+                android:id="@+id/imageButton5"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:contentDescription="@string/dummy_string"
+                android:visibility="invisible"
+                app:srcCompat="@color/colorPrimary" />
+
+            <ImageButton
+                android:id="@+id/btn_rot_right"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:background="@drawable/button_states"
+                android:contentDescription="@string/dummy_string"
+                android:scaleType="fitCenter"
+                android:tag="Derecha"
+                app:srcCompat="@drawable/rc_control_rotate_right" />
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageButton
+                android:id="@+id/imageButton6"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:contentDescription="@string/dummy_string"
+                android:visibility="invisible"
+                app:srcCompat="@color/colorPrimary" />
+
+            <ImageButton
+                android:id="@+id/btn_bw"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:background="@drawable/button_states"
+                android:contentDescription="@string/mv_bw"
+                android:rotation="180"
+                android:scaleType="fitCenter"
+                android:tag="Patras"
+                app:srcCompat="@drawable/rc_control_move" />
+        </TableRow>
+
+    </TableLayout>
+
+    <TableLayout
+        android:id="@+id/tableLayout"
+        android:layout_width="210dp"
+        android:layout_height="210dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageButton
+                android:id="@+id/btn_luces"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:background="@drawable/button_states"
+                android:contentDescription="@string/head_lights"
+                android:scaleType="centerInside"
+                android:tag="Luces"
+                app:srcCompat="@drawable/rc_head_lights" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageButton
+                android:id="@+id/btn_sig_rot_left"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:background="@drawable/button_states"
+                android:contentDescription="@string/turn_signal_left"
+                android:scaleType="centerInside"
+                android:tag="Izquierdo"
+                app:srcCompat="@drawable/rc_turn_signal" />
+
+            <ImageButton
+                android:id="@+id/btn_emergencias"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:background="@drawable/button_states"
+                android:contentDescription="@string/hazard_lights"
+                android:scaleType="centerInside"
+                android:tag="Emergencias"
+                app:srcCompat="@drawable/rc_hazard_lights" />
+
+            <ImageButton
+                android:id="@+id/btn_sig_rot_right"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:background="@drawable/button_states"
+                android:contentDescription="@string/turn_signal_right"
+                android:rotation="180"
+                android:scaleType="centerInside"
+                android:tag="Derecho"
+                app:srcCompat="@drawable/rc_turn_signal" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageButton
+                android:id="@+id/btn_claxon"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:background="@drawable/button_states"
+                android:contentDescription="@string/claxon"
+                android:scaleType="centerInside"
+                android:tag="Claxon"
+                app:srcCompat="@drawable/rc_horn" />
+        </TableRow>
+
+    </TableLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="280dp"
+        android:layout_height="200dp"
+
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="8dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/tableLayout"
+        app:layout_constraintStart_toEndOf="@+id/tableLayout2"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/labelServidor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/txt_lbl_servidor" />
+
+            <EditText
+                android:id="@+id/editText_host"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:ems="10"
+                android:inputType="textPersonName" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=":"/>
+            <EditText
+                android:id="@+id/editText_port"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:ems="10"
+                android:inputType="textPersonName" />
+        </LinearLayout>
+
+        <EditText
+            android:id="@+id/areaNotificaciones"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:ems="5"
+            android:gravity="start|top"
+            android:inputType="textMultiLine" />
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btn_conectar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/button_states"
+        android:onClick="archivoConectarCon"
+        android:text="Conectar"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/btn_desconectar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:background="@drawable/button_states"
+        android:onClick="archivoDesconectar"
+        android:text="Desconectar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
