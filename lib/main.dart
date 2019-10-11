@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'vehicleController.dart';
 
 void main() => runApp(MyApp());
 
@@ -9,9 +10,22 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
+        scaffoldBackgroundColor: Colors.black,
         primarySwatch: Colors.blue,
+        accentColor: Colors.white,
+        textTheme: TextTheme(
+            body1: TextStyle(
+              color: Colors.white,
+            ),
+            display1: TextStyle(
+              color: Colors.white,
+            )),
       ),
-      home: MyHomePage(title: 'Flutter Demo Home Page'),
+      initialRoute: '/',
+      routes: {
+        '/': (context) => MyHomePage(title: 'Flutter Demo Home Page'),
+        '/vehicleControls': (context) => VehicleController(),
+      },
     );
   }
 }
@@ -39,12 +53,18 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
+        leading: IconButton(
+          icon: Icon(Icons.drive_eta),
+          onPressed: () {
+            Navigator.pushNamed(context, '/vehicleControls');
+          },
+        ),
       ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Text(
+            const Text(
               'You have pushed the button this many times:',
             ),
             Text(
@@ -57,7 +77,7 @@ class _MyHomePageState extends State<MyHomePage> {
       floatingActionButton: FloatingActionButton(
         onPressed: _incrementCounter,
         tooltip: 'Increment',
-        child: Icon(Icons.add),
+        child: const Icon(Icons.add),
       ),
     );
   }
