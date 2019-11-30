@@ -1,3 +1,6 @@
+import 'package:control_pad/control_pad.dart';
+import 'package:control_pad/models/gestures.dart';
+import 'package:control_pad/models/pad_button_item.dart';
 import 'package:flutter/material.dart';
 import 'vehicleController.dart';
 
@@ -40,13 +43,12 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
+  List<PadButtonItem> buttons = [];
 
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
-  }
+  PadButtonItem button1 = PadButtonItem(index: 1, buttonText: '1');
+  PadButtonItem button2 = PadButtonItem(index: 1, buttonText: '2');
+  PadButtonItem button3 = PadButtonItem(index: 1, buttonText: '3');
+  PadButtonItem button4 = PadButtonItem(index: 1, buttonText: '4');
 
   @override
   Widget build(BuildContext context) {
@@ -61,23 +63,58 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
       ),
       body: Center(
-        child: Column(
+        child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
+            JoystickView(
+              interval: Duration(milliseconds: 1000),
+              showArrows: true,
+              size: 224,
+              onDirectionChanged: (grados, distanciaNormalizada) {
+                print('Grados: ' + grados.toString());
+                print('distancia: ' + distanciaNormalizada.toString());
+              },
             ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.display1,
+            SizedBox(
+              width: 120.0,
+            ),
+            SizedBox(
+              width: 120.0,
+            ),
+            PadButtonsView(
+              padButtonPressedCallback: (buttonNumber, gesture) {
+                print('Botón: ' + buttonNumber.toString());
+                print('Gesto: ' + gesture.toString());
+              },
+              buttons: [
+                PadButtonItem(
+                  index: 1,
+                  buttonText: '1',
+                  supportedGestures: [Gestures.TAP],
+                ),
+                PadButtonItem(
+                  index: 2,
+                  buttonText: '2',
+                ),
+                PadButtonItem(
+                  index: 3,
+                  buttonText: 'E',
+                ),
+                PadButtonItem(
+                  index: 4,
+                  buttonText: '4',
+                ),
+                PadButtonItem(
+                  index: 5,
+                  buttonText: '5',
+                ),PadButtonItem(
+                  index: 6,
+                  buttonText: '6',
+                ),
+              ],
             ),
           ],
         ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
       ),
     );
   }
