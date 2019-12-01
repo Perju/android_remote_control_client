@@ -43,6 +43,40 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  Widget padButtons = PadButtonsView(
+    padButtonPressedCallback: (buttonNumber, gesture) {
+      print('Botón: ' + buttonNumber.toString());
+      print('Gesto: ' + gesture.toString());
+    },
+    buttons: [
+      PadButtonItem(
+        index: 1,
+        buttonText: '1',
+        supportedGestures: [Gestures.TAP],
+      ),
+      PadButtonItem(
+        index: 2,
+        buttonText: '2',
+      ),
+      PadButtonItem(
+        index: 3,
+        buttonText: 'E',
+      ),
+      PadButtonItem(
+        index: 4,
+        buttonText: '4',
+      ),
+      PadButtonItem(
+        index: 5,
+        buttonText: '5',
+      ),
+      PadButtonItem(
+        index: 6,
+        buttonText: '6',
+      ),
+    ],
+  );
+
   List<PadButtonItem> buttons = [];
 
   PadButtonItem button1 = PadButtonItem(index: 1, buttonText: '1');
@@ -75,43 +109,12 @@ class _MyHomePageState extends State<MyHomePage> {
                 print('distancia: ' + distanciaNormalizada.toString());
               },
             ),
+            padButtons,
             SizedBox(
               width: 120.0,
             ),
             SizedBox(
               width: 120.0,
-            ),
-            PadButtonsView(
-              padButtonPressedCallback: (buttonNumber, gesture) {
-                print('Botón: ' + buttonNumber.toString());
-                print('Gesto: ' + gesture.toString());
-              },
-              buttons: [
-                PadButtonItem(
-                  index: 1,
-                  buttonText: '1',
-                  supportedGestures: [Gestures.TAP],
-                ),
-                PadButtonItem(
-                  index: 2,
-                  buttonText: '2',
-                ),
-                PadButtonItem(
-                  index: 3,
-                  buttonText: 'E',
-                ),
-                PadButtonItem(
-                  index: 4,
-                  buttonText: '4',
-                ),
-                PadButtonItem(
-                  index: 5,
-                  buttonText: '5',
-                ),PadButtonItem(
-                  index: 6,
-                  buttonText: '6',
-                ),
-              ],
             ),
           ],
         ),
