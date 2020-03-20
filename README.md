@@ -1,4 +1,4 @@
-# android_remote_control_client
+# rc_androidx
 
 A new Flutter project.
 
