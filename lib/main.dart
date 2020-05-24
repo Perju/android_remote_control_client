@@ -1,8 +1,8 @@
-import 'package:control_pad/control_pad.dart';
-import 'package:control_pad/models/gestures.dart';
-import 'package:control_pad/models/pad_button_item.dart';
 import 'package:flutter/material.dart';
+
 import 'vehicleController.dart';
+import 'appConfigure.dart';
+import 'behaviorTricks.dart';
 
 void main() => runApp(MyApp());
 
@@ -10,6 +10,7 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    const title = 'RPi-Car remote control';
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
@@ -17,17 +18,19 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
         accentColor: Colors.white,
         textTheme: TextTheme(
-            body1: TextStyle(
-              color: Colors.white,
-            ),
-            display1: TextStyle(
-              color: Colors.white,
-            )),
+          body1: TextStyle(
+            color: Colors.white,
+          ),
+          display1: TextStyle(
+            color: Colors.white,
+          ),
+        ),
       ),
       initialRoute: '/',
       routes: {
-        '/': (context) => MyHomePage(title: 'Flutter Demo Home Page'),
-        '/vehicleControls': (context) => VehicleController(),
+        '/': (context) => MyHomePage(title: title),
+        '/vehicleControls': (context) => VehicleControllerSLess(title: title),
+        '/appConfig': (context) => AppConfiguration(title: title),
       },
     );
   }
@@ -43,82 +46,37 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  Widget padButtons = PadButtonsView(
-    padButtonPressedCallback: (buttonNumber, gesture) {
-      print('Botón: ' + buttonNumber.toString());
-      print('Gesto: ' + gesture.toString());
-    },
-    buttons: [
-      PadButtonItem(
-        index: 1,
-        buttonText: '1',
-        supportedGestures: [Gestures.TAP],
-      ),
-      PadButtonItem(
-        index: 2,
-        buttonText: '2',
-      ),
-      PadButtonItem(
-        index: 3,
-        buttonText: 'E',
-      ),
-      PadButtonItem(
-        index: 4,
-        buttonText: '4',
-      ),
-      PadButtonItem(
-        index: 5,
-        buttonText: '5',
-      ),
-      PadButtonItem(
-        index: 6,
-        buttonText: '6',
-      ),
-    ],
-  );
-
-  List<PadButtonItem> buttons = [];
-
-  PadButtonItem button1 = PadButtonItem(index: 1, buttonText: '1');
-  PadButtonItem button2 = PadButtonItem(index: 1, buttonText: '2');
-  PadButtonItem button3 = PadButtonItem(index: 1, buttonText: '3');
-  PadButtonItem button4 = PadButtonItem(index: 1, buttonText: '4');
+  @override
+  initState() {
+    super.initState();
+    landscapeModeOnly();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.title),
-        leading: IconButton(
-          icon: Icon(Icons.drive_eta),
-          onPressed: () {
-            Navigator.pushNamed(context, '/vehicleControls');
-          },
-        ),
+        title: Text('Controles del vehiculo'),
       ),
-      body: Center(
+      body: Container(
         child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            JoystickView(
-              interval: Duration(milliseconds: 1000),
-              showArrows: true,
-              size: 224,
-              onDirectionChanged: (grados, distanciaNormalizada) {
-                print('Grados: ' + grados.toString());
-                print('distancia: ' + distanciaNormalizada.toString());
+            Text('¡hola mundo!'),
+            RaisedButton(
+              child: Text('Volver'),
+              onPressed: () {
+                Navigator.pushNamed(context, '/vehicleControls');
               },
-            ),
-            padButtons,
-            SizedBox(
-              width: 120.0,
-            ),
-            SizedBox(
-              width: 120.0,
-            ),
+            )
           ],
         ),
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    enableRotation();
   }
 }
