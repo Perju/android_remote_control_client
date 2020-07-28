@@ -8,6 +8,7 @@ environment:
 
 dependencies:
   control_pad: ^1.0.0+2
+  socket_io_client: ^0.9.10
   flutter:
     sdk: flutter
   cupertino_icons: ^0.1.2
