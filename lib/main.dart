@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-import 'vehicleController.dart';
-import 'appConfigure.dart';
-import 'behaviorTricks.dart';
+import 'src/vehicleController.dart';
+import 'src/appConfigure.dart';
+import 'src/behaviorTricks.dart';
 
 void main() => runApp(MyApp());
 
