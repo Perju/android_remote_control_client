@@ -8,7 +8,7 @@ abstract class ConnectionState extends Equatable {
 
 class ConnectionDisconected extends ConnectionState {
   @override
-  List<Object> get props => props;
+  List<Object> get props => [];
 
   @override
   String toString() => "ConnectionDisconected";
@@ -16,7 +16,7 @@ class ConnectionDisconected extends ConnectionState {
 
 class ConnectionConnected extends ConnectionState {
   @override
-  List<Object> get props => props;
+  List<Object> get props => [];
 
   @override
   String toString() => "ConnectionConected";
@@ -24,7 +24,7 @@ class ConnectionConnected extends ConnectionState {
 
 class ConnectionConnecting extends ConnectionState {
   @override
-  List<Object> get props => props;
+  List<Object> get props => [];
 
   @override
   String toString() => "ConnectionConecting";
@@ -32,7 +32,7 @@ class ConnectionConnecting extends ConnectionState {
 
 class ConnectionDisconnecting extends ConnectionState {
   @override
-  List<Object> get props => props;
+  List<Object> get props => [];
 
   @override
   String toString() => "ConnectionDisconecting";

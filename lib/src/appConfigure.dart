@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:socket_io_client/socket_io_client.dart' as IO;
+import './bloc/connection_bloc.dart';
+import "./bloc/connection_event.dart";
 
 class AppConfiguration extends StatelessWidget {
   AppConfiguration({Key key, this.title}) : super(key: key);
@@ -41,7 +45,8 @@ class ConfigFormState extends State<ConfigForm> {
     filled: true,
   );
 
-  var servidor = TextFormField(
+  static var servidor = TextFormField(
+    controller: TextEditingController(),
     decoration: decoration.copyWith(
       labelText: "Dirección IP",
       hintText: "192.xxx.xxx.xxx",
@@ -53,7 +58,9 @@ class ConfigFormState extends State<ConfigForm> {
       return null;
     },
   );
-  var puerto = TextFormField(
+
+  static var puerto = TextFormField(
+    controller: TextEditingController(),
     decoration: decoration.copyWith(
       labelText: "Puerto",
       hintText: "4000",
@@ -66,19 +73,48 @@ class ConfigFormState extends State<ConfigForm> {
     },
   );
 
-  var conectar = RaisedButton(
-    onPressed: () {},
-    child: Text("Conectar"),
-  );
-
   @override
   Widget build(BuildContext context) {
-    return Form(
-      key: _formKey,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: <Widget>[servidor, puerto, conectar],
+    final ConnectionBloc connectionBloc = ConnectionBloc(
+        socket: IO.io("", <String, dynamic>{'autoConnect': false}));
+    return BlocProvider<ConnectionBloc>(
+      create: (BuildContext context) => connectionBloc,
+      child: Form(
+        key: _formKey,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: <Widget>[
+            servidor,
+            puerto,
+            RaisedButton(
+              onPressed: () {
+                String url = _generateUrlConnection(
+                    servidor.controller.text, puerto.controller.text);
+                if (url != "error") {
+                  connectionBloc.socket.io.uri = url;
+                  connectionBloc.add(Connect());
+                }
+              },
+              child: Text("Conectar"),
+            )
+          ],
+        ),
       ),
     );
   }
 }
+
+String _generateUrlConnection(String ip, String port) {
+  if (ip != null && port != null) {
+    return "http://${ip}:${port}";
+  } else {
+    return "error";
+  }
+}
+
+/// Regexps para comprobar la ip el puerto
+// final RegExp ipRegExp = new RegExp(
+//   r"^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}",
+// );
+
+// final RegExp portRegExp = new RegExp(r"^\d{1,5}");
