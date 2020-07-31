@@ -76,7 +76,10 @@ class ConfigFormState extends State<ConfigForm> {
   @override
   Widget build(BuildContext context) {
     final ConnectionBloc connectionBloc = ConnectionBloc(
-        socket: IO.io("", <String, dynamic>{'autoConnect': false}));
+        socket: IO.io("", <String, dynamic>{
+      'autoConnect': false,
+      'transports': ['websocket']
+    }));
     return BlocProvider<ConnectionBloc>(
       create: (BuildContext context) => connectionBloc,
       child: Form(

@@ -14,7 +14,6 @@ class ConnectionBloc extends Bloc<ConnectionEvent, ConnectionState> {
     ConnectionEvent event,
   ) async* {
     if (event is Connect) {
-      print(this.socket.io.uri);
       yield* _connect();
     } else if (event is Disconnect) {
       yield* _disconnect();
