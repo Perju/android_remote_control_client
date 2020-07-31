@@ -17,6 +17,8 @@ class Disconnect extends ConnectionEvent {
 }
 
 class SendData extends ConnectionEvent {
+  SendData(this.data);
+  final dynamic data;
   @override
   List<Object> get props => props;
 }

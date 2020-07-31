@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:socket_io_client/socket_io_client.dart' as IO;
 
+import 'src/bloc/connection_bloc.dart';
 import 'src/vehicleController.dart';
 import 'src/appConfigure.dart';
 import 'src/behaviorTricks.dart';
@@ -11,27 +14,35 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     const title = 'RPi-Car remote control';
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        scaffoldBackgroundColor: Colors.black,
-        primarySwatch: Colors.blue,
-        accentColor: Colors.white,
-        textTheme: TextTheme(
-          body1: TextStyle(
-            color: Colors.white,
-          ),
-          display1: TextStyle(
-            color: Colors.white,
+    final ConnectionBloc connectionBloc = ConnectionBloc(
+        socket: IO.io("", <String, dynamic>{
+      'autoConnect': false,
+      'transports': ['websocket']
+    }));
+    return BlocProvider<ConnectionBloc>(
+      create: (BuildContext context) => connectionBloc,
+      child: MaterialApp(
+        title: 'Flutter Demo',
+        theme: ThemeData(
+          scaffoldBackgroundColor: Colors.black,
+          primarySwatch: Colors.blue,
+          accentColor: Colors.white,
+          textTheme: TextTheme(
+            body1: TextStyle(
+              color: Colors.white,
+            ),
+            display1: TextStyle(
+              color: Colors.white,
+            ),
           ),
         ),
+        initialRoute: '/',
+        routes: {
+          '/': (context) => MyHomePage(title: title),
+          '/vehicleControls': (context) => VehicleControllerSLess(title: title),
+          '/appConfig': (context) => AppConfiguration(title: title),
+        },
       ),
-      initialRoute: '/',
-      routes: {
-        '/': (context) => MyHomePage(title: title),
-        '/vehicleControls': (context) => VehicleControllerSLess(title: title),
-        '/appConfig': (context) => AppConfiguration(title: title),
-      },
     );
   }
 }

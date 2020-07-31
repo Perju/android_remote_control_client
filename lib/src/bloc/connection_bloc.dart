@@ -18,7 +18,7 @@ class ConnectionBloc extends Bloc<ConnectionEvent, ConnectionState> {
     } else if (event is Disconnect) {
       yield* _disconnect();
     } else if (event is SendData) {
-      yield* _sendData();
+      yield* _sendData(event);
     }
   }
 
@@ -28,5 +28,8 @@ class ConnectionBloc extends Bloc<ConnectionEvent, ConnectionState> {
   }
 
   Stream<void> _disconnect() async* {}
-  Stream<void> _sendData() async* {}
+  Stream<ConnectionState> _sendData(SendData event) async* {
+    socket.emit("pruebas", event.data);
+    yield ConnectionConnected();
+  }
 }

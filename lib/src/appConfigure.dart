@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:socket_io_client/socket_io_client.dart' as IO;
 import './bloc/connection_bloc.dart';
 import "./bloc/connection_event.dart";
 
@@ -75,33 +74,26 @@ class ConfigFormState extends State<ConfigForm> {
 
   @override
   Widget build(BuildContext context) {
-    final ConnectionBloc connectionBloc = ConnectionBloc(
-        socket: IO.io("", <String, dynamic>{
-      'autoConnect': false,
-      'transports': ['websocket']
-    }));
-    return BlocProvider<ConnectionBloc>(
-      create: (BuildContext context) => connectionBloc,
-      child: Form(
-        key: _formKey,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: <Widget>[
-            servidor,
-            puerto,
-            RaisedButton(
-              onPressed: () {
-                String url = _generateUrlConnection(
-                    servidor.controller.text, puerto.controller.text);
-                if (url != "error") {
-                  connectionBloc.socket.io.uri = url;
-                  connectionBloc.add(Connect());
-                }
-              },
-              child: Text("Conectar"),
-            )
-          ],
-        ),
+    final connectionBloc = BlocProvider.of<ConnectionBloc>(context);
+    return Form(
+      key: _formKey,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: <Widget>[
+          servidor,
+          puerto,
+          RaisedButton(
+            onPressed: () {
+              String url = _generateUrlConnection(
+                  servidor.controller.text, puerto.controller.text);
+              if (url != "error") {
+                connectionBloc.socket.io.uri = url;
+                connectionBloc.add(Connect());
+              }
+            },
+            child: Text("Conectar"),
+          )
+        ],
       ),
     );
   }
