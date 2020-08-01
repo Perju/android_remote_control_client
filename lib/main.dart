@@ -11,6 +11,7 @@ void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
+
   @override
   Widget build(BuildContext context) {
     const title = 'RPi-Car remote control';
@@ -28,10 +29,10 @@ class MyApp extends StatelessWidget {
           primarySwatch: Colors.blue,
           accentColor: Colors.white,
           textTheme: TextTheme(
-            body1: TextStyle(
+            bodyText2: TextStyle(
               color: Colors.white,
             ),
-            display1: TextStyle(
+            headline4: TextStyle(
               color: Colors.white,
             ),
           ),

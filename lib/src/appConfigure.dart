@@ -80,19 +80,31 @@ class ConfigFormState extends State<ConfigForm> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
+          SizedBox(height: 16.0),
           servidor,
+          SizedBox(height: 16.0),
           puerto,
-          RaisedButton(
-            onPressed: () {
-              String url = _generateUrlConnection(
-                  servidor.controller.text, puerto.controller.text);
-              if (url != "error") {
-                connectionBloc.socket.io.uri = url;
-                connectionBloc.add(Connect());
-              }
-            },
-            child: Text("Conectar"),
-          )
+          Row(mainAxisSize: MainAxisSize.min, children: [
+            RaisedButton(
+              onPressed: () {
+                String url = _generateUrlConnection(
+                    servidor.controller.text, puerto.controller.text);
+                print("***Wee***\n$url");
+                if (url != "error") {
+                  connectionBloc.socket.io.uri = url;
+                  connectionBloc.add(Connect());
+                }
+              },
+              child: Text("Conectar"),
+            ),
+            SizedBox(width: 16.0),
+            RaisedButton(
+              onPressed: () {
+                connectionBloc.add(Disconnect());
+              },
+              child: Text("Desconectar"),
+            )
+          ]),
         ],
       ),
     );
