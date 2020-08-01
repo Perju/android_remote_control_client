@@ -1,3 +1,4 @@
+import 'package:control_pad/models/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:control_pad/control_pad.dart';
@@ -15,12 +16,31 @@ class VehicleControllerSLess extends StatelessWidget {
   Widget build(BuildContext context) {
     final connectionBloc = BlocProvider.of<ConnectionBloc>(context);
     final Widget padButtons = PadButtonsView(
-      padButtonPressedCallback: (buttonNumber, gesture) {
-        print('Botón: ' + buttonNumber.toString());
-        print('Gesto: ' + gesture.toString());
-        connectionBloc.add(SendData("Cadena de datos"));
+      padButtonPressedCallback: (i, gesture) {
+        var data;
+        switch (i) {
+          case 0:
+            data = {"accion": "intermitentes", "lado": "derecho"};
+            break;
+          case 1:
+            data = {"accion": "emergencias", "estado": "encender"};
+            break;
+          case 2:
+            data = {"accion": "luces", "estado": "on"};
+            break;
+          case 3:
+            data = {"accion": "intermitentes", "lado": "izquierdo"};
+            break;
+          case 4:
+            data = {"accion": "claxon", "estado": "on"};
+            break;
+          case 5:
+            data = {"accion": "config", "mis": "hm"};
+            break;
+        }
+        connectionBloc.add(SendData(data));
       },
-      buttons: _fillButtons(),
+      buttons: _createButtons(),
     );
     return Scaffold(
       appBar: AppBar(
@@ -56,7 +76,7 @@ class VehicleControllerSLess extends StatelessWidget {
   }
 }
 
-List<PadButtonItem> _fillButtons() {
+List<PadButtonItem> _createButtons() {
   final List<PadButtonItem> buttons = [];
   final List<IconData> icons = [
     Icons.fast_forward,
@@ -66,10 +86,13 @@ List<PadButtonItem> _fillButtons() {
     Icons.volume_up,
     Icons.settings,
   ];
+
   icons.forEach((iconData) {
     final i = icons.indexOf(iconData);
     final icon = Icon(iconData);
-    buttons.add(PadButtonItem(index: i, buttonIcon: icon));
+    buttons.add(PadButtonItem(
+        index: i, buttonIcon: icon, supportedGestures: Gestures.values));
   });
+  PadButtonItem boton;
   return buttons;
 }
