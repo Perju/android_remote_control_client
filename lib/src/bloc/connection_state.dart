@@ -2,11 +2,11 @@ import "package:equatable/equatable.dart";
 import "package:meta/meta.dart";
 
 @immutable
-abstract class ConnectionState extends Equatable {
-  ConnectionState();
+abstract class MyConnectionState extends Equatable {
+  MyConnectionState();
 }
 
-class ConnectionDisconected extends ConnectionState {
+class ConnectionDisconected extends MyConnectionState {
   @override
   List<Object> get props => [];
 
@@ -14,7 +14,7 @@ class ConnectionDisconected extends ConnectionState {
   String toString() => "ConnectionDisconected";
 }
 
-class ConnectionConnected extends ConnectionState {
+class ConnectionConnected extends MyConnectionState {
   @override
   List<Object> get props => [];
 
@@ -22,7 +22,7 @@ class ConnectionConnected extends ConnectionState {
   String toString() => "ConnectionConected";
 }
 
-class ConnectionConnecting extends ConnectionState {
+class ConnectionConnecting extends MyConnectionState {
   @override
   List<Object> get props => [];
 
@@ -30,7 +30,7 @@ class ConnectionConnecting extends ConnectionState {
   String toString() => "ConnectionConecting";
 }
 
-class ConnectionDisconnecting extends ConnectionState {
+class ConnectionDisconnecting extends MyConnectionState {
   @override
   List<Object> get props => [];
 

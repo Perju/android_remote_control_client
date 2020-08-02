@@ -1,16 +1,16 @@
 import "dart:async";
-import "package:bloc/bloc.dart";
+import "package:flutter_bloc/flutter_bloc.dart";
 import "package:meta/meta.dart";
 import "package:socket_io_client/socket_io_client.dart" as IO;
 import "connection_event.dart";
 import "connection_state.dart";
 
-class ConnectionBloc extends Bloc<ConnectionEvent, ConnectionState> {
+class ConnectionBloc extends Bloc<ConnectionEvent, MyConnectionState> {
   final IO.Socket socket;
   ConnectionBloc({@required this.socket}) : super(ConnectionDisconected());
 
   @override
-  Stream<ConnectionState> mapEventToState(
+  Stream<MyConnectionState> mapEventToState(
     ConnectionEvent event,
   ) async* {
     if (event is Connect) {
@@ -22,17 +22,17 @@ class ConnectionBloc extends Bloc<ConnectionEvent, ConnectionState> {
     }
   }
 
-  Stream<ConnectionState> _connect() async* {
+  Stream<MyConnectionState> _connect() async* {
     socket.connect();
     yield ConnectionConnected();
   }
 
-  Stream<ConnectionState> _disconnect() async* {
+  Stream<MyConnectionState> _disconnect() async* {
     socket.disconnect();
     yield ConnectionDisconected();
   }
 
-  Stream<ConnectionState> _sendData(SendData event) async* {
+  Stream<MyConnectionState> _sendData(SendData event) async* {
     socket.emit("pruebas", event.data);
     yield ConnectionConnected();
   }
