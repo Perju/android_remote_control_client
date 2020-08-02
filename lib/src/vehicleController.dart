@@ -82,26 +82,35 @@ class VehicleController extends StatelessWidget {
 class InfoPanel extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisSize: MainAxisSize.min,
-      children: <Widget>[
-        DecoratedBox(
-          decoration: BoxDecoration(color: Colors.grey),
-          child: Icon(Icons.fast_forward),
-        ),
-        DecoratedBox(
-            decoration: BoxDecoration(color: Colors.grey),
-            child: Icon(Icons.change_history)),
-        DecoratedBox(
-            decoration: BoxDecoration(color: Colors.grey),
-            child: Icon(Icons.lightbulb_outline)),
-        DecoratedBox(
-            decoration: BoxDecoration(color: Colors.grey),
-            child: Icon(Icons.fast_rewind)),
-        DecoratedBox(
-            decoration: BoxDecoration(color: Colors.grey),
-            child: Icon(Icons.volume_up))
-      ],
+    return BlocBuilder<ConnectionBloc, MyConnectionState>(
+      builder: (context, state) {
+        return Row(
+          mainAxisSize: MainAxisSize.min,
+          children: <Widget>[
+            DecoratedBox(
+                decoration: BoxDecoration(
+                    color: state.signals[0] ? Colors.green : Colors.grey),
+                child: Icon(Icons.change_history)),
+            DecoratedBox(
+                decoration: BoxDecoration(
+                    color: state.signals[0] ? Colors.green : Colors.grey),
+                child: Icon(Icons.lightbulb_outline)),
+            DecoratedBox(
+                decoration: BoxDecoration(
+                    color: state.signals[0] ? Colors.green : Colors.grey),
+                child: Icon(Icons.fast_rewind)),
+            DecoratedBox(
+                decoration: BoxDecoration(
+                    color: state.signals[0] ? Colors.green : Colors.grey),
+                child: Icon(Icons.volume_up)),
+            DecoratedBox(
+              decoration: BoxDecoration(
+                  color: state.signals[0] ? Colors.green : Colors.grey),
+              child: Icon(Icons.fast_forward),
+            ),
+          ],
+        );
+      },
     );
   }
 }

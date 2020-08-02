@@ -7,7 +7,7 @@ abstract class MyConnectionState extends Equatable {
 
   MyConnectionState() {
     this.signals = [];
-    this.signals.addAll([true, true, true, true, true, true]);
+    this.signals.addAll([false, false, false, false, false, false]);
   }
 }
 
