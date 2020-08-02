@@ -19,11 +19,15 @@ class AppConfiguration extends StatelessWidget {
           },
         ),
       ),
-      body: Center(
-        child: SizedBox(
-          width: 480,
-          child: ConfigForm(),
-        ),
+      body: ListView(
+        children: [
+          Center(
+            child: SizedBox(
+              width: 480,
+              child: ConfigForm(),
+            ),
+          ),
+        ],
       ),
     );
   }
