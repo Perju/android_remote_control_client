@@ -40,7 +40,7 @@ class MyApp extends StatelessWidget {
         initialRoute: '/',
         routes: {
           '/': (context) => MyHomePage(title: title),
-          '/vehicleControls': (context) => VehicleControllerSLess(title: title),
+          '/vehicleControls': (context) => VehicleController(title: title),
           '/appConfig': (context) => AppConfiguration(title: title),
         },
       ),

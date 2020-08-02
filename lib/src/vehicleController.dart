@@ -6,9 +6,9 @@ import 'package:control_pad/models/pad_button_item.dart';
 import "./bloc/connection_bloc.dart";
 import "./bloc/connection_event.dart";
 
-class VehicleControllerSLess extends StatelessWidget {
+class VehicleController extends StatelessWidget {
 //  _VehicleControllerState createState() => _VehicleControllerState();
-  VehicleControllerSLess({Key key, this.title}) : super(key: key);
+  VehicleController({Key key, this.title}) : super(key: key);
 
   final String title;
 
@@ -20,22 +20,23 @@ class VehicleControllerSLess extends StatelessWidget {
         var data;
         switch (i) {
           case 0:
-            data = {"accion": "intermitentes", "lado": "derecho"};
+            data = {"type": "rightSign", "state": "!widget.rightSign"};
             break;
           case 1:
-            data = {"accion": "emergencias", "estado": "encender"};
+            data = {"type": "emergencias", "state": "!widget.hazard"};
             break;
           case 2:
-            data = {"accion": "luces", "estado": "on"};
+            data = {"type": "light", "state": "!widget.light"};
             break;
           case 3:
-            data = {"accion": "intermitentes", "lado": "izquierdo"};
+            data = {"type": "leftSign", "state": "!widget.leftSign"};
             break;
           case 4:
-            data = {"accion": "claxon", "estado": "on"};
+            final state = gesture == Gestures.LONGPRESSSTART;
+            data = {"type": "horn", "state": state};
             break;
           case 5:
-            data = {"accion": "config", "mis": "hm"};
+            data = {"type": "config", "mis": "hm"};
             break;
         }
         connectionBloc.add(SendData(data));
@@ -77,22 +78,38 @@ class VehicleControllerSLess extends StatelessWidget {
 }
 
 List<PadButtonItem> _createButtons() {
-  final List<PadButtonItem> buttons = [];
-  final List<IconData> icons = [
-    Icons.fast_forward,
-    Icons.change_history,
-    Icons.lightbulb_outline,
-    Icons.fast_rewind,
-    Icons.volume_up,
-    Icons.settings,
+  final List<PadButtonItem> buttons = [
+    PadButtonItem(
+      index: 0,
+      buttonIcon: Icon(Icons.fast_forward),
+      supportedGestures: [Gestures.TAP],
+    ),
+    PadButtonItem(
+      index: 1,
+      buttonIcon: Icon(Icons.change_history),
+      supportedGestures: [Gestures.TAP],
+    ),
+    PadButtonItem(
+      index: 2,
+      buttonIcon: Icon(Icons.lightbulb_outline),
+      supportedGestures: [Gestures.TAP],
+    ),
+    PadButtonItem(
+      index: 3,
+      buttonIcon: Icon(Icons.fast_rewind),
+      supportedGestures: [Gestures.TAP],
+    ),
+    PadButtonItem(
+      index: 4,
+      buttonIcon: Icon(Icons.volume_up),
+      supportedGestures: [Gestures.LONGPRESSSTART, Gestures.LONGPRESSUP],
+    ),
+    PadButtonItem(
+      index: 5,
+      buttonIcon: Icon(Icons.settings),
+      supportedGestures: [Gestures.TAP],
+    ),
   ];
 
-  icons.forEach((iconData) {
-    final i = icons.indexOf(iconData);
-    final icon = Icon(iconData);
-    buttons.add(PadButtonItem(
-        index: i, buttonIcon: icon, supportedGestures: Gestures.values));
-  });
-  PadButtonItem boton;
   return buttons;
 }
