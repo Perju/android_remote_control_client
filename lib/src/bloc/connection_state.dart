@@ -3,7 +3,12 @@ import "package:meta/meta.dart";
 
 @immutable
 abstract class MyConnectionState extends Equatable {
-  MyConnectionState();
+  List<bool> signals;
+
+  MyConnectionState() {
+    this.signals = [];
+    this.signals.addAll([true, true, true, true, true, true]);
+  }
 }
 
 class ConnectionDisconected extends MyConnectionState {

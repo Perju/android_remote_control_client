@@ -5,6 +5,7 @@ import 'package:control_pad/control_pad.dart';
 import 'package:control_pad/models/pad_button_item.dart';
 import "./bloc/connection_bloc.dart";
 import "./bloc/connection_event.dart";
+import './bloc/connection_state.dart';
 
 class VehicleController extends StatelessWidget {
 //  _VehicleControllerState createState() => _VehicleControllerState();
@@ -14,35 +15,30 @@ class VehicleController extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final connectionBloc = BlocProvider.of<ConnectionBloc>(context);
-    final Widget padButtons = PadButtonsView(
-      padButtonPressedCallback: (i, gesture) {
-        var data;
-        switch (i) {
-          case 0:
-            data = {"type": "rightSign", "state": true};
-            break;
-          case 1:
-            data = {"type": "emergencias", "state": true};
-            break;
-          case 2:
-            data = {"type": "light", "state": true};
-            break;
-          case 3:
-            data = {"type": "leftSign", "state": true};
-            break;
-          case 4:
-            final state = gesture == Gestures.LONGPRESSSTART;
-            data = {"type": "horn", "state": state};
-            break;
-          case 5:
-            data = {"type": "config", "mis": "hm"};
-            break;
-        }
-        connectionBloc.add(SendData(data));
+    List<dynamic> signals = [
+      {"type": "rightSign", "state": true},
+      {"type": "emergencias", "state": true},
+      {"type": "light", "state": true},
+      {"type": "leftSign", "state": true},
+      {"type": "horn", "state": true},
+      {"type": "config", "mis": "hm", "state": true}
+    ];
+    final Widget padButtons = BlocBuilder<ConnectionBloc, MyConnectionState>(
+      builder: (context, state) {
+        return PadButtonsView(
+          padButtonPressedCallback: (i, gesture) {
+            if (i == 4) {
+              signals[i]["state"] = gesture == Gestures.TAPDOWN;
+            } else {
+              signals[i]["state"] = !state.signals[i];
+            }
+            context.bloc<ConnectionBloc>().add(SendData(signals[i]));
+          },
+          buttons: _createButtons(),
+        );
       },
-      buttons: _createButtons(),
     );
+
     return Scaffold(
       appBar: AppBar(
         title: Text(this.title),
@@ -135,7 +131,7 @@ List<PadButtonItem> _createButtons() {
     PadButtonItem(
       index: 4,
       buttonIcon: Icon(Icons.volume_up),
-      supportedGestures: [Gestures.LONGPRESSSTART, Gestures.LONGPRESSUP],
+      supportedGestures: [Gestures.TAPDOWN, Gestures.TAPUP],
     ),
     PadButtonItem(
       index: 5,
