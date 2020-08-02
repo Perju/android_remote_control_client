@@ -20,16 +20,16 @@ class VehicleController extends StatelessWidget {
         var data;
         switch (i) {
           case 0:
-            data = {"type": "rightSign", "state": "!widget.rightSign"};
+            data = {"type": "rightSign", "state": true};
             break;
           case 1:
-            data = {"type": "emergencias", "state": "!widget.hazard"};
+            data = {"type": "emergencias", "state": true};
             break;
           case 2:
-            data = {"type": "light", "state": "!widget.light"};
+            data = {"type": "light", "state": true};
             break;
           case 3:
-            data = {"type": "leftSign", "state": "!widget.leftSign"};
+            data = {"type": "leftSign", "state": true};
             break;
           case 4:
             final state = gesture == Gestures.LONGPRESSSTART;
@@ -54,25 +54,58 @@ class VehicleController extends StatelessWidget {
         ),
       ),
       body: Center(
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
-            JoystickView(
-              interval: Duration(milliseconds: 1000),
-              showArrows: true,
-              size: 224,
-              onDirectionChanged: (grados, distanciaNormalizada) {
-                print('Grados: ' + grados.toString());
-                print('distancia: ' + distanciaNormalizada.toString());
-              },
+            InfoPanel(),
+            Row(
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                JoystickView(
+                  interval: Duration(milliseconds: 1000),
+                  showArrows: true,
+                  size: 224,
+                  onDirectionChanged: (grados, distanciaNormalizada) {
+                    print('Grados: ' + grados.toString());
+                    print('distancia: ' + distanciaNormalizada.toString());
+                  },
+                ),
+                SizedBox(
+                  width: 120.0,
+                ),
+                padButtons,
+              ],
             ),
-            SizedBox(
-              width: 120.0,
-            ),
-            padButtons,
           ],
         ),
       ),
+    );
+  }
+}
+
+class InfoPanel extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      children: <Widget>[
+        DecoratedBox(
+          decoration: BoxDecoration(color: Colors.grey),
+          child: Icon(Icons.fast_forward),
+        ),
+        DecoratedBox(
+            decoration: BoxDecoration(color: Colors.grey),
+            child: Icon(Icons.change_history)),
+        DecoratedBox(
+            decoration: BoxDecoration(color: Colors.grey),
+            child: Icon(Icons.lightbulb_outline)),
+        DecoratedBox(
+            decoration: BoxDecoration(color: Colors.grey),
+            child: Icon(Icons.fast_rewind)),
+        DecoratedBox(
+            decoration: BoxDecoration(color: Colors.grey),
+            child: Icon(Icons.volume_up))
+      ],
     );
   }
 }
