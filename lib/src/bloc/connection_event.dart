@@ -22,3 +22,10 @@ class SendData extends ConnectionEvent {
   @override
   List<Object> get props => props;
 }
+
+class ReciveData extends ConnectionEvent {
+  ReciveData(this.data);
+  final Map data;
+  @override
+  List<Object> get props => props;
+}

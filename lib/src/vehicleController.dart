@@ -17,7 +17,7 @@ class VehicleController extends StatelessWidget {
   Widget build(BuildContext context) {
     List<dynamic> signals = [
       {"type": "rightSign", "state": true},
-      {"type": "emergencias", "state": true},
+      {"type": "hazard", "state": true},
       {"type": "light", "state": true},
       {"type": "leftSign", "state": true},
       {"type": "horn", "state": true},
@@ -30,7 +30,7 @@ class VehicleController extends StatelessWidget {
             if (i == 4) {
               signals[i]["state"] = gesture == Gestures.TAPDOWN;
             } else {
-              signals[i]["state"] = !state.signals[i];
+              signals[i]["state"] = !state.signals[signals[i]["type"]];
             }
             context.bloc<ConnectionBloc>().add(SendData(signals[i]));
           },
@@ -89,23 +89,27 @@ class InfoPanel extends StatelessWidget {
           children: <Widget>[
             DecoratedBox(
                 decoration: BoxDecoration(
-                    color: state.signals[0] ? Colors.green : Colors.grey),
+                    color:
+                        state.signals["hazard"] ? Colors.green : Colors.grey),
                 child: Icon(Icons.change_history)),
             DecoratedBox(
                 decoration: BoxDecoration(
-                    color: state.signals[0] ? Colors.green : Colors.grey),
+                    color: state.signals["light"] ? Colors.green : Colors.grey),
                 child: Icon(Icons.lightbulb_outline)),
             DecoratedBox(
                 decoration: BoxDecoration(
-                    color: state.signals[0] ? Colors.green : Colors.grey),
+                    color: state.signals["rightSign"]
+                        ? Colors.green
+                        : Colors.grey),
                 child: Icon(Icons.fast_rewind)),
             DecoratedBox(
                 decoration: BoxDecoration(
-                    color: state.signals[0] ? Colors.green : Colors.grey),
+                    color: state.signals["horn"] ? Colors.green : Colors.grey),
                 child: Icon(Icons.volume_up)),
             DecoratedBox(
               decoration: BoxDecoration(
-                  color: state.signals[0] ? Colors.green : Colors.grey),
+                  color:
+                      state.signals["leftSign"] ? Colors.green : Colors.grey),
               child: Icon(Icons.fast_forward),
             ),
           ],
@@ -140,7 +144,11 @@ List<PadButtonItem> _createButtons() {
     PadButtonItem(
       index: 4,
       buttonIcon: Icon(Icons.volume_up),
-      supportedGestures: [Gestures.TAPDOWN, Gestures.TAPUP],
+      supportedGestures: [
+        Gestures.TAPDOWN,
+        Gestures.TAPUP,
+        Gestures.LONGPRESSUP
+      ],
     ),
     PadButtonItem(
       index: 5,

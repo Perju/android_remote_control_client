@@ -3,41 +3,37 @@ import "package:meta/meta.dart";
 
 @immutable
 abstract class MyConnectionState extends Equatable {
-  List<bool> signals;
+  final Map signals;
 
-  MyConnectionState() {
-    this.signals = [];
-    this.signals.addAll([false, false, false, false, false, false]);
-  }
+  MyConnectionState(this.signals);
+
+  @override
+  List<Object> get props => [signals];
 }
 
 class ConnectionDisconected extends MyConnectionState {
-  @override
-  List<Object> get props => [];
+  ConnectionDisconected(signals):super(signals);
 
   @override
   String toString() => "ConnectionDisconected";
 }
 
 class ConnectionConnected extends MyConnectionState {
-  @override
-  List<Object> get props => [];
+  ConnectionConnected(signals):super(signals);
 
   @override
   String toString() => "ConnectionConected";
 }
 
 class ConnectionConnecting extends MyConnectionState {
-  @override
-  List<Object> get props => [];
+  ConnectionConnecting(signals):super(signals);
 
   @override
   String toString() => "ConnectionConecting";
 }
 
 class ConnectionDisconnecting extends MyConnectionState {
-  @override
-  List<Object> get props => [];
+  ConnectionDisconnecting(signals):super(signals);
 
   @override
   String toString() => "ConnectionDisconecting";

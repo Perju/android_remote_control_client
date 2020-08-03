@@ -7,7 +7,15 @@ import "connection_state.dart";
 
 class ConnectionBloc extends Bloc<ConnectionEvent, MyConnectionState> {
   final IO.Socket socket;
-  ConnectionBloc({@required this.socket}) : super(ConnectionDisconected());
+  ConnectionBloc({@required this.socket})
+      : super(ConnectionDisconected({
+          "rightSign": false,
+          "hazard": false,
+          "light": false,
+          "leftSign": false,
+          "horn": false,
+          "config": false
+        }));
 
   @override
   Stream<MyConnectionState> mapEventToState(
@@ -19,21 +27,32 @@ class ConnectionBloc extends Bloc<ConnectionEvent, MyConnectionState> {
       yield* _disconnect();
     } else if (event is SendData) {
       yield* _sendData(event);
+    } else if (event is ReciveData) {
+      yield* _reciveData(event);
     }
   }
 
   Stream<MyConnectionState> _connect() async* {
     socket.connect();
-    yield ConnectionConnected();
+    socket.on("signal", (data) {
+      add(ReciveData(data));
+    });
+    yield ConnectionConnected(state.signals);
   }
 
   Stream<MyConnectionState> _disconnect() async* {
     socket.disconnect();
-    yield ConnectionDisconected();
+    yield ConnectionDisconected(state.signals);
   }
 
   Stream<MyConnectionState> _sendData(SendData event) async* {
     socket.emit("pruebas", event.data);
-    yield ConnectionConnected();
+    yield ConnectionConnected(state.signals);
+  }
+
+  Stream<MyConnectionState> _reciveData(ReciveData event) async* {
+    var newSignals = Map.from(state.signals);
+    newSignals[event.data["type"]] = event.data["state"];
+    yield ConnectionConnected(newSignals);
   }
 }

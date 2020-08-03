@@ -93,7 +93,6 @@ class ConfigFormState extends State<ConfigForm> {
               onPressed: () {
                 String url = _generateUrlConnection(
                     servidor.controller.text, puerto.controller.text);
-                print("***Wee***\n$url");
                 if (url != "error") {
                   connectionBloc.socket.io.uri = url;
                   connectionBloc.add(Connect());
