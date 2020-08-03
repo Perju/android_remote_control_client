@@ -4,23 +4,22 @@ import "package:meta/meta.dart";
 @immutable
 abstract class ConnectionEvent extends Equatable {
   ConnectionEvent();
-}
-
-class Connect extends ConnectionEvent {
   @override
   List<Object> get props => props;
 }
 
-class Disconnect extends ConnectionEvent {
-  @override
-  List<Object> get props => props;
-}
+class Connect extends ConnectionEvent {}
 
-class SendData extends ConnectionEvent {
-  SendData(this.data);
+class Disconnect extends ConnectionEvent {}
+
+class SendSignal extends ConnectionEvent {
   final dynamic data;
-  @override
-  List<Object> get props => props;
+  SendSignal(this.data);
+}
+
+class SendSteer extends ConnectionEvent {
+  final dynamic data;
+  SendSteer(this.data);
 }
 
 class ReciveData extends ConnectionEvent {
