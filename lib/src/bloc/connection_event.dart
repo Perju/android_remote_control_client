@@ -5,7 +5,7 @@ import "package:meta/meta.dart";
 abstract class ConnectionEvent extends Equatable {
   ConnectionEvent();
   @override
-  List<Object> get props => props;
+  List<Object> get props => [];
 }
 
 class Connect extends ConnectionEvent {}
@@ -25,6 +25,4 @@ class SendSteer extends ConnectionEvent {
 class ReciveData extends ConnectionEvent {
   ReciveData(this.data);
   final Map data;
-  @override
-  List<Object> get props => props;
 }

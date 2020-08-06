@@ -96,7 +96,7 @@ class InfoPanel extends StatelessWidget {
                 child: Icon(Icons.lightbulb_outline)),
             DecoratedBox(
                 decoration: BoxDecoration(
-                    color: state.signals["rightSign"]
+                    color: state.signals["leftSign"]
                         ? Colors.green
                         : Colors.grey),
                 child: Icon(Icons.fast_rewind)),
@@ -107,7 +107,7 @@ class InfoPanel extends StatelessWidget {
             DecoratedBox(
               decoration: BoxDecoration(
                   color:
-                      state.signals["leftSign"] ? Colors.green : Colors.grey),
+                      state.signals["rightSign"] ? Colors.green : Colors.grey),
               child: Icon(Icons.fast_forward),
             ),
           ],
