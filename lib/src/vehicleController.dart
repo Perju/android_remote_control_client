@@ -3,9 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:control_pad/control_pad.dart';
 import 'package:control_pad/models/pad_button_item.dart';
-import "./bloc/connection_bloc.dart";
-import "./bloc/connection_event.dart";
-import './bloc/connection_state.dart';
+import "./bloc/bloc.dart";
 
 class VehicleController extends StatelessWidget {
   VehicleController({Key key, this.title}) : super(key: key);

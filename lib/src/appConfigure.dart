@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import './bloc/connection_bloc.dart';
-import "./bloc/connection_event.dart";
+import './bloc/bloc.dart';
 
 class AppConfiguration extends StatelessWidget {
   AppConfiguration({Key key, this.title}) : super(key: key);
