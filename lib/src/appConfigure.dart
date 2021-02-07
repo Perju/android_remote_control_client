@@ -14,7 +14,8 @@ class AppConfiguration extends StatelessWidget {
         leading: IconButton(
           icon: Icon(Icons.drive_eta),
           onPressed: () {
-            Navigator.pushNamed(context, '/vehicleControls');
+            Navigator.pushNamedAndRemoveUntil(
+                context, '/vehicleControls', ModalRoute.withName('/'));
           },
         ),
       ),

@@ -42,7 +42,8 @@ class VehicleController extends StatelessWidget {
         leading: IconButton(
           icon: Icon(Icons.settings),
           onPressed: () {
-            Navigator.pushNamed(context, '/appConfig');
+            Navigator.pushNamedAndRemoveUntil(
+                context, '/appConfig', ModalRoute.withName('/'));
           },
         ),
       ),
