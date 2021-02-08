@@ -56,13 +56,16 @@ class VehicleController extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
                 JoystickView(
-                  interval: Duration(milliseconds: 1000),
+                  interval: Duration(milliseconds: 250),
                   showArrows: true,
                   size: 224,
                   onDirectionChanged: (degree, factor) {
                     print('Grados: ' + degree.toString());
                     print('distancia: ' + factor.toString());
-                    context.bloc<ConnectionBloc>().add(SendSteer({"degree":degree,"factor":factor,}));
+                    context.bloc<ConnectionBloc>().add(SendSteer({
+                          "degree": degree,
+                          "factor": factor,
+                        }));
                   },
                 ),
                 SizedBox(
@@ -97,9 +100,8 @@ class InfoPanel extends StatelessWidget {
                 child: Icon(Icons.lightbulb_outline)),
             DecoratedBox(
                 decoration: BoxDecoration(
-                    color: state.signals["leftSign"]
-                        ? Colors.green
-                        : Colors.grey),
+                    color:
+                        state.signals["leftSign"] ? Colors.green : Colors.grey),
                 child: Icon(Icons.fast_rewind)),
             DecoratedBox(
                 decoration: BoxDecoration(

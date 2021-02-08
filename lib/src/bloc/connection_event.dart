@@ -8,7 +8,10 @@ abstract class ConnectionEvent extends Equatable {
   List<Object> get props => [];
 }
 
-class Connect extends ConnectionEvent {}
+class Connect extends ConnectionEvent {
+  final String uri;
+  Connect(this.uri);
+}
 
 class Disconnect extends ConnectionEvent {}
 

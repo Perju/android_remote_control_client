@@ -21,7 +21,7 @@ class ConnectionBloc extends Bloc<ConnectionEvent, MyConnectionState> {
     ConnectionEvent event,
   ) async* {
     if (event is Connect) {
-      yield* _connect();
+      yield* _connect(event);
     } else if (event is Disconnect) {
       yield* _disconnect();
     } else if (event is SendSignal) {
@@ -33,7 +33,9 @@ class ConnectionBloc extends Bloc<ConnectionEvent, MyConnectionState> {
     }
   }
 
-  Stream<MyConnectionState> _connect() async* {
+  Stream<MyConnectionState> _connect(Connect event) async* {
+    print(event.uri);
+    socket.io.uri = event.uri;
     socket.connect();
     socket.on("signal", (data) {
       add(ReciveData(data));
@@ -52,7 +54,7 @@ class ConnectionBloc extends Bloc<ConnectionEvent, MyConnectionState> {
   }
 
   void _sendSteer(SendSteer event) {
-    socket.emit("pruebas", event.data);
+    socket.emit("steer", event.data);
   }
 
   Stream<MyConnectionState> _reciveData(ReciveData event) async* {

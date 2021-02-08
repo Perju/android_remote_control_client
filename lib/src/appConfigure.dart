@@ -94,8 +94,7 @@ class ConfigFormState extends State<ConfigForm> {
                 String url = _generateUrlConnection(
                     servidor.controller.text, puerto.controller.text);
                 if (url != "error") {
-                  connectionBloc.socket.io.uri = url;
-                  connectionBloc.add(Connect());
+                  connectionBloc.add(Connect(url));
                 }
               },
               child: Text("Conectar"),

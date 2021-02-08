@@ -9,13 +9,23 @@ import 'src/behaviorTricks.dart';
 
 void main() => runApp(MyApp());
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
+  MyApp({Key key, this.title}) : super(key: key);
+
+  final String title;
+
+  @override
+  _MyApp createState() => _MyApp();
+}
+
+class _MyApp extends State<MyApp> {
   // This widget is the root of your application.
+  ConnectionBloc connectionBloc;
 
   @override
   Widget build(BuildContext context) {
     const title = 'RPi-Car remote control';
-    final ConnectionBloc connectionBloc = ConnectionBloc(
+    connectionBloc = ConnectionBloc(
         socket: IO.io("", <String, dynamic>{
       'autoConnect': false,
       'transports': ['websocket']
@@ -45,6 +55,12 @@ class MyApp extends StatelessWidget {
         },
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    connectionBloc.close();
   }
 }
 
