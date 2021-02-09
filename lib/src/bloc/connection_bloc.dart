@@ -59,7 +59,7 @@ class ConnectionBloc extends Bloc<ConnectionEvent, MyConnectionState> {
 
   Stream<MyConnectionState> _reciveData(ReciveData event) async* {
     var newSignals = Map.from(state.signals);
-    newSignals[event.data["type"]] = event.data["isActive"];
+    newSignals[event.data["type"]] = event.data["state"];
     yield ConnectionConnected(newSignals);
   }
 }
