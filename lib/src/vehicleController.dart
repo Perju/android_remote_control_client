@@ -6,7 +6,7 @@ import 'package:control_pad/models/pad_button_item.dart';
 import "./bloc/bloc.dart";
 
 class VehicleController extends StatelessWidget {
-  VehicleController({Key key, this.title}) : super(key: key);
+  VehicleController({required this.title});
 
   final String title;
 
@@ -29,7 +29,7 @@ class VehicleController extends StatelessWidget {
             } else {
               signals[i]["state"] = !state.signals[signals[i]["type"]];
             }
-            context.bloc<ConnectionBloc>().add(SendSignal(signals[i]));
+            context.read<ConnectionBloc>().add(SendSignal(signals[i]));
           },
           buttons: _createButtons(),
         );
@@ -62,7 +62,7 @@ class VehicleController extends StatelessWidget {
                   onDirectionChanged: (degree, factor) {
                     print('Grados: ' + degree.toString());
                     print('distancia: ' + factor.toString());
-                    context.bloc<ConnectionBloc>().add(SendSteer({
+                    context.read<ConnectionBloc>().add(SendSteer({
                           "degree": degree,
                           "factor": factor,
                         }));

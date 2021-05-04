@@ -1,12 +1,11 @@
 import "dart:async";
 import "package:flutter_bloc/flutter_bloc.dart";
-import "package:meta/meta.dart";
 import "package:socket_io_client/socket_io_client.dart" as IO;
 import 'bloc.dart';
 
 class ConnectionBloc extends Bloc<ConnectionEvent, MyConnectionState> {
   final IO.Socket socket;
-  ConnectionBloc({@required this.socket})
+  ConnectionBloc({required this.socket})
       : super(ConnectionDisconected({
           "rightSign": false,
           "hazard": false,

@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import './bloc/bloc.dart';
 
 class AppConfiguration extends StatelessWidget {
-  AppConfiguration({Key key, this.title}) : super(key: key);
+  AppConfiguration({required this.title});
 
   final String title;
 
@@ -55,7 +55,7 @@ class ConfigFormState extends State<ConfigForm> {
       hintText: "192.xxx.xxx.xxx",
     ),
     validator: (value) {
-      if (value.isEmpty) {
+      if (value!.isEmpty) {
         return 'Campo vacío';
       }
       return null;
@@ -69,7 +69,7 @@ class ConfigFormState extends State<ConfigForm> {
       hintText: "4000",
     ),
     validator: (value) {
-      if (value.isEmpty) {
+      if (value!.isEmpty) {
         return 'Campo vacío';
       }
       return null;
@@ -89,10 +89,10 @@ class ConfigFormState extends State<ConfigForm> {
           SizedBox(height: 16.0),
           puerto,
           Row(mainAxisSize: MainAxisSize.min, children: [
-            RaisedButton(
+            ElevatedButton(
               onPressed: () {
                 String url = _generateUrlConnection(
-                    servidor.controller.text, puerto.controller.text);
+                    servidor.controller!.text, puerto.controller!.text);
                 if (url != "error") {
                   connectionBloc.add(Connect(url));
                 }
@@ -100,7 +100,7 @@ class ConfigFormState extends State<ConfigForm> {
               child: Text("Conectar"),
             ),
             SizedBox(width: 16.0),
-            RaisedButton(
+            ElevatedButton(
               onPressed: () {
                 connectionBloc.add(Disconnect());
               },

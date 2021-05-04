@@ -1,3 +1,4 @@
+// @dart=2.9
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:socket_io_client/socket_io_client.dart' as IO;
@@ -7,10 +8,10 @@ import 'src/vehicleController.dart';
 import 'src/appConfigure.dart';
 import 'src/behaviorTricks.dart';
 
-void main() => runApp(MyApp());
+void main() => runApp(MyApp(title: "RC Remote Control"));
 
 class MyApp extends StatefulWidget {
-  MyApp({Key key, this.title}) : super(key: key);
+  MyApp({this.title});
 
   final String title;
 
@@ -20,16 +21,15 @@ class MyApp extends StatefulWidget {
 
 class _MyApp extends State<MyApp> {
   // This widget is the root of your application.
-  ConnectionBloc connectionBloc;
+  ConnectionBloc connectionBloc = ConnectionBloc(
+      socket: IO.io("", <String, dynamic>{
+    'autoConnect': false,
+    'transports': ['websocket']
+  }));
 
   @override
   Widget build(BuildContext context) {
     const title = 'RPi-Car remote control';
-    connectionBloc = ConnectionBloc(
-        socket: IO.io("", <String, dynamic>{
-      'autoConnect': false,
-      'transports': ['websocket']
-    }));
     return BlocProvider<ConnectionBloc>(
       create: (BuildContext context) => connectionBloc,
       child: MaterialApp(
@@ -65,7 +65,7 @@ class _MyApp extends State<MyApp> {
 }
 
 class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
+  MyHomePage({this.title: "Titulo"});
 
   final String title;
 
@@ -90,7 +90,7 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Row(
           children: <Widget>[
             Text('¡hola mundo!'),
-            RaisedButton(
+            ElevatedButton(
               child: Text('Volver'),
               onPressed: () {
                 Navigator.pushNamed(context, '/vehicleControls');
