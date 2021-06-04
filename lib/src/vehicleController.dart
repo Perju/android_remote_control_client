@@ -5,6 +5,24 @@ import 'package:control_pad/control_pad.dart';
 import 'package:control_pad/models/pad_button_item.dart';
 import "./bloc/bloc.dart";
 
+class Joystick extends StatelessWidget {
+  Joystick(this.side);
+  final side;
+  Widget build(BuildContext context) {
+    return JoystickView(
+        interval: Duration(milliseconds: 250),
+        showArrows: true,
+        size: 224,
+        onDirectionChanged: (degree, factor) {
+          context.read<ConnectionBloc>().add(SendSteer({
+                "motor": side,
+                "degree": degree,
+                "factor": factor,
+              }));
+        });
+  }
+}
+
 class VehicleController extends StatelessWidget {
   VehicleController({required this.title});
 
@@ -55,23 +73,11 @@ class VehicleController extends StatelessWidget {
             Row(
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
-                JoystickView(
-                  interval: Duration(milliseconds: 250),
-                  showArrows: true,
-                  size: 224,
-                  onDirectionChanged: (degree, factor) {
-                    print('Grados: ' + degree.toString());
-                    print('distancia: ' + factor.toString());
-                    context.read<ConnectionBloc>().add(SendSteer({
-                          "degree": degree,
-                          "factor": factor,
-                        }));
-                  },
-                ),
-                SizedBox(
-                  width: 120.0,
-                ),
+                Joystick("left"),
+                SizedBox(width: 12.0),
                 padButtons,
+                SizedBox(width: 12.0),
+                Joystick("right"),
               ],
             ),
           ],
