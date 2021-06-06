@@ -88,6 +88,14 @@ class VehicleController extends StatelessWidget {
 }
 
 class InfoPanel extends StatelessWidget {
+  Widget infoIcon(signal, icon) {
+    return DecoratedBox(
+        decoration: BoxDecoration(
+          color: signal ? Colors.green : Colors.grey,
+        ),
+        child: Icon(icon));
+  }
+
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<ConnectionBloc, MyConnectionState>(
@@ -95,37 +103,11 @@ class InfoPanel extends StatelessWidget {
         return Row(
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
-            DecoratedBox(
-                decoration: BoxDecoration(
-                    color: state.signals["hazard"] ?? false
-                        ? Colors.green
-                        : Colors.grey),
-                child: Icon(Icons.change_history)),
-            DecoratedBox(
-                decoration: BoxDecoration(
-                    color: state.signals["light"] ?? false
-                        ? Colors.green
-                        : Colors.grey),
-                child: Icon(Icons.lightbulb_outline)),
-            DecoratedBox(
-                decoration: BoxDecoration(
-                    color: state.signals["leftSign"] ?? false
-                        ? Colors.green
-                        : Colors.grey),
-                child: Icon(Icons.fast_rewind)),
-            DecoratedBox(
-                decoration: BoxDecoration(
-                    color: state.signals["horn"] ?? false
-                        ? Colors.green
-                        : Colors.grey),
-                child: Icon(Icons.volume_up)),
-            DecoratedBox(
-              decoration: BoxDecoration(
-                  color: state.signals["rightSign"] ?? false
-                      ? Colors.green
-                      : Colors.grey),
-              child: Icon(Icons.fast_forward),
-            ),
+            infoIcon(state.signals["hazard"] ?? false, Icons.change_history),
+            infoIcon(state.signals["light"] ?? false, Icons.lightbulb_outline),
+            infoIcon(state.signals["leftSign"] ?? false, Icons.fast_rewind),
+            infoIcon(state.signals["horn"] ?? false, Icons.volume_up),
+            infoIcon(state.signals["rightSign"] ?? false, Icons.fast_forward),
           ],
         );
       },
@@ -134,42 +116,24 @@ class InfoPanel extends StatelessWidget {
 }
 
 List<PadButtonItem> _createButtons() {
-  final List<PadButtonItem> buttons = [
-    PadButtonItem(
-      index: 0,
-      buttonIcon: Icon(Icons.fast_forward),
-      supportedGestures: [Gestures.TAP],
-    ),
-    PadButtonItem(
-      index: 1,
-      buttonIcon: Icon(Icons.change_history),
-      supportedGestures: [Gestures.TAP],
-    ),
-    PadButtonItem(
-      index: 2,
-      buttonIcon: Icon(Icons.lightbulb_outline),
-      supportedGestures: [Gestures.TAP],
-    ),
-    PadButtonItem(
-      index: 3,
-      buttonIcon: Icon(Icons.fast_rewind),
-      supportedGestures: [Gestures.TAP],
-    ),
-    PadButtonItem(
-      index: 4,
-      buttonIcon: Icon(Icons.volume_up),
-      supportedGestures: [
-        Gestures.TAPDOWN,
-        Gestures.TAPUP,
-        Gestures.LONGPRESSUP
-      ],
-    ),
-    PadButtonItem(
-      index: 5,
-      buttonIcon: Icon(Icons.settings),
-      supportedGestures: [Gestures.TAP],
-    ),
+  final List<IconData> iButons = [
+    Icons.fast_forward,
+    Icons.change_history,
+    Icons.lightbulb_outline,
+    Icons.fast_rewind,
+    Icons.volume_up,
+    Icons.settings,
   ];
+
+  List<PadButtonItem> buttons = [];
+  iButons.forEach((e) => {
+        buttons.add(PadButtonItem(
+            index: iButons.indexOf(e),
+            buttonIcon: Icon(e),
+            supportedGestures: e == Icons.volume_up
+                ? [Gestures.TAPDOWN, Gestures.TAPUP, Gestures.LONGPRESSUP]
+                : [Gestures.TAP]))
+      });
 
   return buttons;
 }
