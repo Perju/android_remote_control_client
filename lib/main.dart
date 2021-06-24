@@ -33,7 +33,7 @@ class _MyApp extends State<MyApp> {
     return BlocProvider<ConnectionBloc>(
       create: (BuildContext context) => connectionBloc,
       child: MaterialApp(
-        title: 'Flutter Demo',
+        title: title,
         theme: ThemeData(
           scaffoldBackgroundColor: Colors.black,
           primarySwatch: Colors.blue,
@@ -84,20 +84,34 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Controles del vehiculo'),
+        title: Text('Bienvenido'),
       ),
-      body: Container(
-        child: Row(
-          children: <Widget>[
-            Text('¡hola mundo!'),
-            ElevatedButton(
-              child: Text('Volver'),
-              onPressed: () {
-                Navigator.pushNamed(context, '/vehicleControls');
-              },
-            )
-          ],
-        ),
+      body: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+              SizedBox(
+                height: 0,
+                width: 0,
+              ),
+              Text(
+                  '¡Bienvenido a la aplicación que sirve para controlar un coche construido con la Raspberry!'),
+              ElevatedButton(
+                child: Text('Comenzar'),
+                onPressed: () {
+                  Navigator.pushNamed(context, '/vehicleControls');
+                },
+              ),
+              SizedBox(
+                height: 0,
+                width: 0,
+              ),
+            ],
+          ),
+        ],
       ),
     );
   }
