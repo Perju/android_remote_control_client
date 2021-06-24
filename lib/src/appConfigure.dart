@@ -49,7 +49,7 @@ class ConfigFormState extends State<ConfigForm> {
   );
 
   static var servidor = TextFormField(
-    controller: TextEditingController(),
+    controller: TextEditingController(text: "192.168.4.1"),
     decoration: decoration.copyWith(
       labelText: "Dirección IP",
       hintText: "192.xxx.xxx.xxx",
@@ -63,10 +63,10 @@ class ConfigFormState extends State<ConfigForm> {
   );
 
   static var puerto = TextFormField(
-    controller: TextEditingController(),
+    controller: TextEditingController(text: "3000"),
     decoration: decoration.copyWith(
       labelText: "Puerto",
-      hintText: "4000",
+      hintText: "3000",
     ),
     validator: (value) {
       if (value!.isEmpty) {
